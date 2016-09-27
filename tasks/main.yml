@@ -7,4 +7,4 @@
   changed_when: "git_installed.rc == 1"
 
 - include: install.yml
-  when: git_installed is not defined
+  when: git_installed.stdout is not defined
