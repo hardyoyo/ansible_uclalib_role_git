@@ -3,6 +3,8 @@
 - name: Determine if Git needs to be installed
   shell: /bin/rpm -qa | grep git-{{ git_version }}
   register: git_installed
+  failed_when: "repo_status.rc > 1"
+  changed_when: "repo_status.rc == 1"
 
 - include: install.yml
   when: git_installed is not defined
