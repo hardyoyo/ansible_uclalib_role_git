@@ -1,5 +1,8 @@
 ---
 
-- name: Install Git
-  yum: name=git state=latest
+- name: Determine if Git needs to be installed
+  shell: /bin/rpm -qa | grep git-{{ git_version }}
+  register: git_installed
 
+- include: install.yml
+  when: git_installed is not defined

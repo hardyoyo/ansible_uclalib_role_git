@@ -1,0 +1,15 @@
+---
+
+- name: Copy git installer binary file
+  copy:
+    src: "git-{{ git_version }}.bin"
+    dest: "/tmp/git-{{ git_version }}.bin"
+    mode: 0750
+
+- name: Install Git
+  command: >
+    /tmp/git-{{ git_version }}.bin
+    creates=/usr/bin/git
+
+- name: Clean-up
+  file: path="/tmp/git-{{ git_version }}.bin" state=absent
