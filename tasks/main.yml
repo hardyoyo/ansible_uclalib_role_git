@@ -1,10 +1,10 @@
 ---
 
 - name: Determine if Git needs to be installed
-  shell: /bin/rpm -qa | grep git-{{ git_version }}
+  command: rpm -q git-{{git_version}}
   register: git_installed
   failed_when: "git_installed.rc > 1"
   changed_when: "git_installed.rc == 1"
 
 - include: install.yml
-  when: git_installed.stdout is not defined
+  when: git_installed.stdout.find('is not installed') != -1
